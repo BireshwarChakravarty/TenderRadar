@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TenderRadar — Communications &amp; PR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+
+/* THEME */
+:root{
+  --bg:#F7F5F2;--bg-card:#FFFFFF;--bg-side:#FFFFFF;--bg-hover:#F2F0ED;--bg-input:#F7F5F2;--bg-muted:#ECEAE7;
+  --text:#18181B;--text2:#52525B;--text3:#A1A1AA;--text-inv:#FFFFFF;
+  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.12);
+  --accent:#1D4ED8;--accent-s:#EFF6FF;--accent-t:#1D4ED8;
+  --green:#15803D;--green-s:#F0FDF4;--amber:#B45309;--amber-s:#FFFBEB;
+  --red:#B91C1C;--red-s:#FEF2F2;--purple:#6D28D9;--purple-s:#F5F3FF;
+  --slate:#475569;--slate-s:#F1F5F9;
+  --sh-sm:0 1px 3px rgba(0,0,0,0.06);--sh-md:0 4px 16px rgba(0,0,0,0.08);--sh-lg:0 20px 48px rgba(0,0,0,0.12);
+  --r-sm:6px;--r-md:10px;--r-lg:14px;
+  --sw:224px;--th:56px;
+}
+[data-theme="dark"]{
+  --bg:#0C0C0E;--bg-card:#18181B;--bg-side:#141416;--bg-hover:#27272A;--bg-input:#27272A;--bg-muted:#1F1F22;
+  --text:#FAFAF9;--text2:#A1A1AA;--text3:#52525B;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --accent:#3B82F6;--accent-s:rgba(59,130,246,0.13);--accent-t:#93C5FD;
+  --green:#22C55E;--green-s:rgba(34,197,94,0.13);--amber:#F59E0B;--amber-s:rgba(245,158,11,0.13);
+  --red:#EF4444;--red-s:rgba(239,68,68,0.13);--purple:#A78BFA;--purple-s:rgba(167,139,250,0.13);
+  --slate:#94A3B8;--slate-s:rgba(148,163,184,0.10);
+  --sh-sm:0 1px 3px rgba(0,0,0,0.4);--sh-md:0 4px 16px rgba(0,0,0,0.5);--sh-lg:0 20px 48px rgba(0,0,0,0.6);
+}
+
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.5}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--bg-side);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:60}
+.s-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.s-mark{width:30px;height:30px;background:var(--text);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s-mark svg{width:15px;height:15px;color:var(--bg-card)}
+.s-name{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--text);letter-spacing:-.3px}
+.s-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;margin-top:1px}
+.s-nav{padding:10px 8px;flex:1;display:flex;flex-direction:column;gap:1px}
+.s-section{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;padding:8px 8px 4px}
+.s-btn{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border-radius:var(--r-sm);border:none;background:none;color:var(--text2);font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;cursor:pointer;transition:all .15s;text-align:left}
+.s-btn:hover{background:var(--bg-hover);color:var(--text)}
+.s-btn.active{background:var(--accent-s);color:var(--accent-t);font-weight:500}
+.s-btn svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
+.s-btn.active svg{opacity:1}
+.s-badge{margin-left:auto;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:20px}
+.s-foot{border-top:1px solid var(--border);padding:12px 10px}
+.s-sync{display:flex;align-items:center;gap:6px;padding:5px 8px}
+.s-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pdot 2.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:.35}}
+.s-synctxt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
+
+/* MAIN */
+.main{margin-left:var(--sw);min-height:100vh;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{height:var(--th);background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:0 22px;position:sticky;top:0;z-index:50;flex-shrink:0}
+.t-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--text);letter-spacing:-.2px}
+.t-space{flex:1}
+.t-chip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:var(--bg-muted);padding:4px 9px;border-radius:var(--r-sm);border:1px solid var(--border);white-space:nowrap}
+.t-toggle{width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border2);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .15s;flex-shrink:0}
+.t-toggle:hover{background:var(--bg-hover);color:var(--text)}
+.t-toggle svg{width:15px;height:15px}
+
+/* CONTENT */
+.content{padding:20px 22px 28px;flex:1;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+/* VIEWS */
+.view{display:none;flex-direction:column;gap:18px}
+.view.active{display:flex}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.s-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;cursor:pointer;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden}
+.s-card:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.s-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.s-card.ca::after{background:var(--accent)}
+.s-card.cg::after{background:var(--green)}
+.s-card.cb::after{background:var(--amber)}
+.s-card.cp::after{background:var(--purple)}
+.sc-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px}
+.sc-val{font-family:'Fraunces',serif;font-size:34px;font-weight:300;line-height:1;margin-bottom:4px}
+.s-card.ca .sc-val{color:var(--accent)}
+.s-card.cg .sc-val{color:var(--green)}
+.s-card.cb .sc-val{color:var(--amber)}
+.s-card.cp .sc-val{color:var(--purple)}
+.sc-sub{font-size:11px;color:var(--text3)}
+
+/* FILTER BAR */
+.fbar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fsearch{position:relative;flex:1;min-width:160px}
+.fsearch input{width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 12px 8px 30px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.fsearch input::placeholder{color:var(--text3)}
+.fsearch input:focus{border-color:var(--accent)}
+.fsearch .fi{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);display:flex}
+.fsearch .fi svg{width:13px;height:13px}
+.fsel{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;transition:border-color .15s}
+.fsel:focus{border-color:var(--accent)}
+.fsel option{background:var(--bg-card);color:var(--text)}
+.fsep{width:1px;height:18px;background:var(--border2);flex-shrink:0}
+.fcount{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap;margin-left:auto}
+
+/* TABLE */
+.tcard{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+col.cp{width:90px}col.ct{width:auto}col.cs{width:148px}col.cv{width:106px}col.cd{width:106px}col.csc{width:98px}col.cst{width:108px}
+thead{background:var(--bg);border-bottom:1px solid var(--border)}
+th{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);padding:10px 14px;text-align:left;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--bg-hover)}
+tbody tr.sel{background:var(--accent-s)}
+td{padding:12px 14px;vertical-align:middle}
+.tm{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%}
+.tr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
+.vtag{display:inline-block;font-size:11px;color:var(--text2);background:var(--bg-muted);padding:2px 8px;border-radius:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.vmono{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap}
+.dl{display:flex;flex-direction:column;gap:1px}
+.dlm{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;white-space:nowrap}
+.dl-ok{color:var(--text2)}.dl-soon{color:var(--amber)}.dl-urg{color:var(--red)}.dl-exp{color:var(--text3);text-decoration:line-through}
+.dls{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);white-space:nowrap}
+.sc{display:flex;align-items:center;gap:7px}
+.scn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;min-width:28px}
+.sct{flex:1;height:3px;background:var(--bg-muted);border-radius:2px;overflow:hidden;min-width:28px}
+.scf{height:100%;border-radius:2px;transition:width .5s}
+.sp{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.1px}
+.sp-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.spn{background:var(--slate-s);color:var(--slate)}.spn .sp-dot{background:var(--slate)}
+.spw{background:var(--accent-s);color:var(--accent-t)}.spw .sp-dot{background:var(--accent)}
+.spb{background:var(--purple-s);color:var(--purple)}.spb .sp-dot{background:var(--purple)}
+.spg{background:var(--green-s);color:var(--green)}.spg .sp-dot{background:var(--green)}
+.spl{background:var(--red-s);color:var(--red)}.spl .sp-dot{background:var(--red)}
+
+/* PORTAL TAGS */
+.ptag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.3px;padding:3px 7px;border-radius:var(--r-sm);border:1px solid transparent;white-space:nowrap;line-height:1.4}
+.pt-gem {background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
+.pt-cppp{background:#F5F3FF;color:#6D28D9;border-color:#DDD6FE}
+.pt-bhel{background:#F0FDF4;color:#15803D;border-color:#BBF7D0}
+.pt-ongc{background:#FFFBEB;color:#B45309;border-color:#FDE68A}
+.pt-ntpc{background:#FFF1F2;color:#BE123C;border-color:#FECDD3}
+.pt-state{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
+.pt-x{background:var(--slate-s);color:var(--slate);border-color:var(--border2)}
+[data-theme="dark"] .pt-gem {background:rgba(59,130,246,.12);color:#93C5FD;border-color:rgba(59,130,246,.25)}
+[data-theme="dark"] .pt-cppp{background:rgba(139,92,246,.12);color:#C4B5FD;border-color:rgba(139,92,246,.25)}
+[data-theme="dark"] .pt-bhel{background:rgba(34,197,94,.12);color:#86EFAC;border-color:rgba(34,197,94,.25)}
+[data-theme="dark"] .pt-ongc{background:rgba(245,158,11,.12);color:#FCD34D;border-color:rgba(245,158,11,.25)}
+[data-theme="dark"] .pt-ntpc{background:rgba(244,63,94,.12);color:#FDA4AF;border-color:rgba(244,63,94,.25)}
+[data-theme="dark"] .pt-state{background:rgba(249,115,22,.12);color:#FDBA74;border-color:rgba(249,115,22,.25)}
+
+/* EMPTY */
+.empty{display:none;padding:60px 24px;text-align:center}
+.ei{width:46px;height:46px;background:var(--bg-muted);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.ei svg{width:20px;height:20px;color:var(--text3)}
+.et{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.es{font-size:12px;color:var(--text3)}
+
+/* DETAIL PANEL */
+.dp-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:70;backdrop-filter:blur(3px)}
+.dp-bg.open{display:block}
+.dp{position:fixed;right:0;top:0;bottom:0;width:450px;background:var(--bg-card);border-left:1px solid var(--border);z-index:80;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh-lg)}
+.dp.open{transform:translateX(0)}
+.dp-hdr{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;flex-shrink:0}
+.dp-x{width:28px;height:28px;border:1px solid var(--border2);border-radius:var(--r-sm);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:all .15s;flex-shrink:0;margin-top:1px}
+.dp-x:hover{background:var(--bg-hover);color:var(--text)}
+.dp-x svg{width:13px;height:13px}
+.dp-tw{flex:1;min-width:0}
+.dp-portal{margin-bottom:6px}
+.dp-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.4;letter-spacing:-.2px}
+.dp-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
+.dp-sl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:9px}
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dp-f{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px}
+.dp-f.full{grid-column:1/-1}
+.dp-fl{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:3px}
+.dp-fv{font-size:13px;font-weight:500;color:var(--text)}
+.dp-fv.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.dp-desc{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;font-size:13px;line-height:1.75;color:var(--text2)}
+
+/* AI BOX */
+.ai-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.ai-head{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid var(--border);background:var(--bg-card)}
+.ai-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;color:var(--accent-t);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.ai-lbl-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.ai-sb{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text);background:var(--bg-muted);padding:2px 7px;border-radius:var(--r-sm)}
+.ai-body{padding:13px;font-size:13px;line-height:1.78;color:var(--text2)}
+.ai-body strong{color:var(--text);font-weight:500}
+.ai-cta{width:100%;padding:13px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--accent-t);transition:background .15s}
+.ai-cta:hover{background:var(--bg-hover)}
+.ai-cta svg{width:14px;height:14px}
+.ai-loading{padding:14px 13px;display:flex;align-items:center;gap:8px;color:var(--text3);font-size:13px}
+.ai-dots{display:flex;gap:3px}
+.ai-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);animation:abdot 1.2s ease-in-out infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}
+.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes abdot{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+
+/* ACTIONS */
+.dp-acts{display:flex;flex-wrap:wrap;gap:6px}
+.dpa{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--r-sm);border:1px solid var(--border2);background:none;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;color:var(--text2);transition:all .15s}
+.dpa:hover{background:var(--bg-hover);color:var(--text)}
+.dpa.aw{border-color:rgba(59,130,246,.3);color:var(--accent-t)}.dpa.aw:hover{background:var(--accent-s)}
+.dpa.ab{border-color:rgba(109,40,217,.3);color:var(--purple)}.dpa.ab:hover{background:var(--purple-s)}
+.dpa.ag{border-color:rgba(21,128,61,.3);color:var(--green)}.dpa.ag:hover{background:var(--green-s)}
+.dpa.ar{border-color:rgba(185,28,28,.3);color:var(--red)}.dpa.ar:hover{background:var(--red-s)}
+.dpa.ap{margin-left:auto;border-color:var(--border2)}
+
+/* PIPELINE */
+.pl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+.pl-col{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.pl-head{padding:11px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pl-name{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.pl-cnt{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)}
+.pl-cards{padding:8px;display:flex;flex-direction:column;gap:5px;min-height:48px}
+.pl-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;cursor:pointer;transition:border-color .15s}
+.pl-card:hover{border-color:var(--border2);box-shadow:var(--sh-sm)}
+.pl-ct{font-size:11px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pl-cm{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.pl-sc{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500}
+.pl-empty{padding:14px 8px;text-align:center;font-size:11px;color:var(--text3)}
+
+/* SETTINGS */
+.set-wrap{max-width:540px;display:flex;flex-direction:column;gap:14px}
+.set-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.set-ch{padding:13px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.set-ct{font-size:13px;font-weight:600;color:var(--text)}
+.set-cs{font-size:11px;color:var(--text3);margin-top:2px}
+.set-body{padding:14px 16px;display:flex;flex-direction:column;gap:11px}
+.set-row{display:grid;grid-template-columns:130px 1fr;align-items:center;gap:12px}
+.set-lbl{font-size:12px;color:var(--text2)}
+.set-inp{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 11px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;width:100%;transition:border-color .15s}
+.set-inp:focus{border-color:var(--accent)}
+.set-inp::placeholder{color:var(--text3)}
+textarea.set-inp{resize:vertical;min-height:76px;font-size:12px;line-height:1.6;grid-column:1/-1}
+.set-save{display:inline-flex;align-items:center;gap:6px;background:var(--text);color:var(--bg-card);border:none;border-radius:var(--r-sm);padding:9px 20px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:2px}
+.set-save:hover{opacity:.85}
+.set-save svg{width:14px;height:14px}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg-card);font-size:12px;font-weight:500;padding:8px 18px;border-radius:20px;z-index:200;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;box-shadow:var(--sh-md)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="s-logo">
+    <div class="s-mark">
+      <svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2.5" fill="currentColor"/><path d="M7.5 1.5v2M7.5 11.5v2M1.5 7.5h2M11.5 7.5h2M3.2 3.2l1.4 1.4M10.4 10.4l1.4 1.4M3.2 11.8l1.4-1.4M10.4 4.6l1.4-1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div><div class="s-name">TenderRadar</div><div class="s-sub">Comms &amp; PR</div></div>
+  </div>
+  <nav class="s-nav">
+    <div class="s-section">Monitor</div>
+    <button class="s-btn active" id="nb-dash" onclick="showView('dashboard',this)">
+      <svg viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="1" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="8.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+      All Tenders
+    </button>
+    <button class="s-btn" id="nb-pipe" onclick="showView('pipeline',this)">
+      <svg viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h8M2 11h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Pipeline
+      <span class="s-badge" id="pbadge">0</span>
+    </button>
+    <div class="s-section" style="margin-top:6px">System</div>
+    <button class="s-btn" id="nb-set" onclick="showView('settings',this)">
+      <svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M7.5 1v1.5M7.5 12.5V14M1 7.5h1.5M12.5 7.5H14M2.9 2.9l1.05 1.05M11.05 11.05l1.05 1.05M2.9 12.1l1.05-1.05M11.05 3.95l1.05-1.05" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Settings
+    </button>
+  </nav>
+  <div class="s-foot">
+    <div class="s-sync"><div class="s-dot"></div><span class="s-synctxt" id="synclbl">Loading…</span></div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <span class="t-title" id="ttitle">All Tenders</span>
+    <div class="t-space"></div>
+    <span class="t-chip" id="pchip">— portals</span>
+    <span class="t-chip" id="tchip">— tenders</span>
+    <button class="t-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+      <svg id="ico-moon" viewBox="0 0 15 15" fill="none"><path d="M13 9.5A5.5 5.5 0 014.5 2a6.5 6.5 0 108.5 7.5z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg id="ico-sun"  viewBox="0 0 15 15" fill="none" style="display:none"><circle cx="7.5" cy="7.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 1v1.5M7.5 12.5V14M1 7.5h1.5M12.5 7.5H14M2.9 2.9l1.05 1.05M11.05 11.05l1.05 1.05M2.9 12.1l1.05-1.05M11.05 3.95l1.05-1.05" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="view active" id="view-dashboard">
+      <div class="stats" id="stats-row"></div>
+      <div class="fbar">
+        <div class="fsearch">
+          <span class="fi"><svg viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 9.5L13 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+          <input type="text" id="si" placeholder="Search mandates, portals, service areas…" oninput="renderTable()">
+        </div>
+        <div class="fsep"></div>
+        <select class="fsel" id="fp" onchange="renderTable()"><option value="">All portals</option></select>
+        <select class="fsel" id="fs" onchange="renderTable()"><option value="">All services</option></select>
+        <select class="fsel" id="fst" onchange="renderTable()"><option value="">All statuses</option><option>New</option><option>Watching</option><option>Bid Submitted</option><option>Won</option><option>Lost</option></select>
+        <select class="fsel" id="fsc" onchange="renderTable()"><option value="">Any score</option><option value="8">Score ≥ 8</option><option value="7">Score ≥ 7</option><option value="6">Score ≥ 6</option></select>
+        <span class="fcount" id="fcount"></span>
+      </div>
+      <div class="tcard">
+        <div class="tscroll">
+          <table>
+            <colgroup><col class="cp"><col class="ct"><col class="cs"><col class="cv"><col class="cd"><col class="csc"><col class="cst"></colgroup>
+            <thead><tr><th>Portal</th><th>Tender / Mandate</th><th>Service Area</th><th>Value</th><th>Deadline</th><th>Fit Score</th><th>Status</th></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="empty" id="empt">
+            <div class="ei"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="et">No tenders match your filters</div>
+            <div class="es">Try adjusting your search or filters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="view" id="view-pipeline">
+      <div class="pl-grid" id="plgrid"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="view-settings">
+      <div class="set-wrap">
+        <div class="set-card">
+          <div class="set-ch"><div class="set-ct">Data Source</div><div class="set-cs">Where your scraped tender data lives</div></div>
+          <div class="set-body">
+            <div class="set-row"><span class="set-lbl">GitHub repo</span><input class="set-inp" id="cfg-repo" placeholder="username/tenderradar"></div>
+            <div class="set-row"><span class="set-lbl">Custom JSON URL</span><input class="set-inp" id="cfg-url" placeholder="Leave blank to auto-detect"></div>
+            <div class="set-row"><span class="set-lbl">Min score to show</span><input class="set-inp" id="cfg-sc" type="number" min="0" max="10" step="0.5" placeholder="0 — show all"></div>
+          </div>
+        </div>
+        <div class="set-card">
+          <div class="set-ch"><div class="set-ct">Agency Profile</div><div class="set-cs">Used by Claude AI when scoring fit in the dashboard</div></div>
+          <div class="set-body">
+            <textarea class="set-inp" id="cfg-profile" rows="5" placeholder="Describe your agency's services and focus areas…"></textarea>
+          </div>
+        </div>
+        <button class="set-save" onclick="saveSettings()">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Save Settings
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="dp-bg" id="dpbg" onclick="closeDp()"></div>
+<div class="dp" id="dpanel">
+  <div class="dp-hdr">
+    <button class="dp-x" onclick="closeDp()"><svg viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    <div class="dp-tw"><div class="dp-portal" id="dptag"></div><div class="dp-title" id="dptitle"></div></div>
+  </div>
+  <div class="dp-body" id="dpbody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var tenders=[], selId=null;
+var STAGES=['New','Watching','Bid Submitted','Won','Lost'];
+var SCOL={'New':'var(--slate)','Watching':'var(--accent)','Bid Submitted':'var(--purple)','Won':'var(--green)','Lost':'var(--red)'};
+var DEF_PROFILE='Communications and PR agency specialising in integrated communications strategy, social media management, digital outreach, creative content development, media monitoring, event publicity, and communication support. We execute mandates involving strategy, content, creative, digital engagement, reputation management, analytics, and campaign execution for government, public-sector, institutional, and corporate clients in India.';
+
+// ── THEME ─────────────────────────────────────────────────
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  applyTheme(t);localStorage.setItem('tr_theme',t);
+}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('ico-moon').style.display=t==='dark'?'none':'block';
+  document.getElementById('ico-sun').style.display=t==='dark'?'block':'none';
+}
+(function(){applyTheme(localStorage.getItem('tr_theme')||'light')})();
+
+// ── SETTINGS ──────────────────────────────────────────────
+function cfg(){return{repo:localStorage.getItem('tr_repo')||'',url:localStorage.getItem('tr_url')||'',minSc:parseFloat(localStorage.getItem('tr_min_sc')||'0'),profile:localStorage.getItem('tr_profile')||DEF_PROFILE};}
+function saveSettings(){
+  localStorage.setItem('tr_repo',document.getElementById('cfg-repo').value.trim());
+  localStorage.setItem('tr_url',document.getElementById('cfg-url').value.trim());
+  localStorage.setItem('tr_min_sc',document.getElementById('cfg-sc').value||'0');
+  localStorage.setItem('tr_profile',document.getElementById('cfg-profile').value.trim()||DEF_PROFILE);
+  toast('Settings saved'); setTimeout(function(){loadData();showView('dashboard',document.getElementById('nb-dash'));},600);
+}
+function initSetForm(){var s=cfg();document.getElementById('cfg-repo').value=s.repo;document.getElementById('cfg-url').value=s.url;document.getElementById('cfg-sc').value=s.minSc||'';document.getElementById('cfg-profile').value=s.profile;}
+
+// ── LOAD DATA ─────────────────────────────────────────────
+async function loadData(){
+  var s=cfg(),urls=[];
+  if(s.url)urls.push(s.url);
+  var h=window.location.hostname,p=window.location.pathname;
+  if(h.endsWith('github.io')){var parts=p.split('/').filter(Boolean);if(parts.length>=1)urls.push('https://raw.githubusercontent.com/'+h.replace('.github.io','')+'/'+parts[0]+'/main/data/tenders.json');}
+  if(s.repo)urls.push('https://raw.githubusercontent.com/'+s.repo+'/main/data/tenders.json');
+  urls.push('../data/tenders.json','./data/tenders.json','data/tenders.json');
+  var loaded=false;
+  for(var i=0;i<urls.length;i++){try{var r=await fetch(urls[i]+'?_='+Date.now());if(!r.ok)continue;var d=await r.json();if(!Array.isArray(d.tenders))continue;tenders=d.tenders;loaded=true;document.getElementById('synclbl').textContent='Live data';break;}catch(e){}}
+  var ov=JSON.parse(localStorage.getItem('tr_sts')||'{}');
+  for(var j=0;j<tenders.length;j++){if(ov[tenders[j].id])tenders[j].status=ov[tenders[j].id];}
+  if(!loaded||!tenders.length){tenders=demo();document.getElementById('synclbl').textContent='Sample data';}
+  populateFilters();renderStats();renderTable();renderPipeline();updateBadge();
+  var portals=[...new Set(tenders.map(function(t){return t.portal;}))];
+  document.getElementById('pchip').textContent=portals.length+' portals';
+  document.getElementById('tchip').textContent=tenders.length+' tenders';
+}
+
+function setStatus(id,st){
+  var t=tenders.find(function(x){return x.id===id;});if(!t)return;
+  t.status=st;var ov=JSON.parse(localStorage.getItem('tr_sts')||'{}');ov[id]=st;localStorage.setItem('tr_sts',JSON.stringify(ov));
+  renderTable();renderPipeline();updateBadge();if(selId===id)openDp(id);toast('Status → '+st);
+}
+
+// ── FILTERS ───────────────────────────────────────────────
+function populateFilters(){
+  var portals=[...new Set(tenders.map(function(t){return t.portal;}))].sort();
+  var svcs=[...new Set(tenders.map(function(t){return t.category||'General';}))].sort();
+  var ps=document.getElementById('fp'),ss=document.getElementById('fs'),pv=ps.value,sv=ss.value;
+  ps.innerHTML='<option value="">All portals</option>'+portals.map(function(p){return'<option>'+p+'</option>';}).join('');
+  ss.innerHTML='<option value="">All services</option>'+svcs.map(function(s){return'<option>'+s+'</option>';}).join('');
+  ps.value=pv;ss.value=sv;
+}
+
+function filtered(){
+  var s=cfg(),q=document.getElementById('si').value.toLowerCase(),fp=document.getElementById('fp').value,fs=document.getElementById('fs').value,fst=document.getElementById('fst').value,fsc=parseFloat(document.getElementById('fsc').value)||s.minSc;
+  return tenders.filter(function(t){
+    return(!q||(t.title+t.category+t.portal+t.ref_no+(t.description||'')).toLowerCase().includes(q))&&(!fp||t.portal===fp)&&(!fs||(t.category||'General')===fs)&&(!fst||t.status===fst)&&(!fsc||(t.score||0)>=fsc);
+  });
+}
+
+// ── STATS ─────────────────────────────────────────────────
+function renderStats(){
+  var all=tenders,high=all.filter(function(t){return(t.score||0)>=8;}).length,soon=all.filter(function(t){var d=dl(t.deadline);return d>=0&&d<=10;}).length,pipe=all.filter(function(t){return t.status==='Watching'||t.status==='Bid Submitted';}).length;
+  document.getElementById('stats-row').innerHTML=sc('Total Tenders',all.length,'Across all portals','ca',"clearF()")+sc('High Fit',high,'Score ≥ 8.0','cg',"setSc('8')")+sc('Closing Soon',soon,'Within 10 days','cb','')+sc('In Pipeline',pipe,'Watching + Bid','cp',"setSt('Watching')");
+}
+function sc(lbl,val,sub,cls,oc){return'<div class="s-card '+cls+'"'+(oc?' onclick="'+oc+'" style="cursor:pointer"':'')+' ><div class="sc-label">'+lbl+'</div><div class="sc-val">'+val+'</div><div class="sc-sub">'+sub+'</div></div>';}
+function clearF(){document.getElementById('fst').value='';document.getElementById('fsc').value='';renderTable();}
+function setSc(v){document.getElementById('fsc').value=v;renderTable();}
+function setSt(v){document.getElementById('fst').value=v;renderTable();}
+
+// ── TABLE ─────────────────────────────────────────────────
+function renderTable(){
+  var list=filtered(),tbody=document.getElementById('tbody'),empt=document.getElementById('empt');
+  document.getElementById('fcount').textContent=list.length+' results';
+  if(!list.length){tbody.innerHTML='';empt.style.display='block';return;}
+  empt.style.display='none';
+  tbody.innerHTML=list.map(function(t){
+    var d=dl(t.deadline),dc='dl-ok',dlbl=d+'d left';
+    if(d<0){dc='dl-exp';dlbl='Expired';}else if(d===0){dc='dl-urg';dlbl='Today';}else if(d<=3){dc='dl-urg';}else if(d<=10){dc='dl-soon';}
+    var sc=t.score||0,scc=sc>=8.5?'var(--green)':sc>=7?'var(--amber)':sc>=5?'var(--text3)':'var(--red)';
+    return'<tr class="'+(selId===t.id?'sel':'')+'" onclick="openDp(\''+t.id+'\')">'
+      +'<td><span class="ptag '+ptcls(t.portal)+'">'+esc(t.portal)+'</span></td>'
+      +'<td><span class="tm">'+esc(t.title||'')+'</span><span class="tr">'+esc(t.ref_no||'')+' · '+esc(t.category||'General')+'</span></td>'
+      +'<td><span class="vtag">'+esc(t.category||'General')+'</span></td>'
+      +'<td><span class="vmono">'+esc(t.value_str||'N/A')+'</span></td>'
+      +'<td><div class="dl"><span class="dlm '+dc+'">'+dlbl+'</span><span class="dls">'+esc(t.deadline||'')+'</span></div></td>'
+      +'<td><div class="sc"><span class="scn" style="color:'+scc+'">'+sc.toFixed(1)+'</span><div class="sct"><div class="scf" style="width:'+(sc*10)+'%;background:'+scc+'"></div></div></div></td>'
+      +'<td>'+spill(t.status)+'</td>'
+      +'</tr>';
+  }).join('');
+}
+
+// ── PIPELINE ──────────────────────────────────────────────
+function renderPipeline(){
+  document.getElementById('plgrid').innerHTML=STAGES.map(function(col){
+    var cards=tenders.filter(function(t){return t.status===col;}),color=SCOL[col]||'var(--slate)';
+    return'<div class="pl-col"><div class="pl-head"><span class="pl-name" style="color:'+color+'">'+col+'</span><span class="pl-cnt">'+cards.length+'</span></div><div class="pl-cards">'
+      +(cards.length?cards.map(function(t){var sc=t.score||0,scc=sc>=8?'var(--green)':sc>=6?'var(--amber)':'var(--text3)';return'<div class="pl-card" onclick="openDp(\''+t.id+'\')"><div class="pl-ct">'+esc(t.title||'')+'</div><div class="pl-cm"><span class="ptag '+ptcls(t.portal)+'">'+esc(t.portal)+'</span><span class="pl-sc" style="color:'+scc+'">'+sc.toFixed(1)+'</span></div></div>';}).join(''):'<div class="pl-empty">Empty</div>')
+      +'</div></div>';
+  }).join('');
+}
+
+function updateBadge(){document.getElementById('pbadge').textContent=tenders.filter(function(t){return t.status==='Watching'||t.status==='Bid Submitted';}).length;}
+
+// ── DETAIL PANEL ──────────────────────────────────────────
+function openDp(id){
+  var t=tenders.find(function(x){return x.id===id;});if(!t)return;
+  selId=id;
+  document.getElementById('dptag').innerHTML='<span class="ptag '+ptcls(t.portal)+'">'+esc(t.portal)+'</span>';
+  document.getElementById('dptitle').textContent=t.title||'';
+  var d=dl(t.deadline),dlc=d>=0&&d<=10?'var(--amber)':d<0?'var(--red)':'var(--text)';
+  document.getElementById('dpbody').innerHTML=
+    '<div><div class="dp-sl">Overview</div><div class="dp-grid">'
+    +'<div class="dp-f"><div class="dp-fl">Service Area</div><div class="dp-fv">'+esc(t.category||'General')+'</div></div>'
+    +'<div class="dp-f"><div class="dp-fl">Value</div><div class="dp-fv mono">'+esc(t.value_str||'N/A')+'</div></div>'
+    +'<div class="dp-f"><div class="dp-fl">Deadline</div><div class="dp-fv mono" style="color:'+dlc+'">'+esc(t.deadline||'N/A')+(d>=0?' ('+d+'d)':' (Expired)')+'</div></div>'
+    +'<div class="dp-f"><div class="dp-fl">Status</div><div class="dp-fv">'+spill(t.status)+'</div></div>'
+    +'<div class="dp-f full"><div class="dp-fl">Reference</div><div class="dp-fv mono">'+esc(t.ref_no||'—')+'</div></div>'
+    +'</div></div>'
+    +'<div><div class="dp-sl">Brief</div><div class="dp-desc">'+esc(t.description||t.title||'No description available.')+'</div></div>'
+    +'<div><div class="dp-sl">AI Fit Analysis</div><div class="ai-wrap" id="ai-'+id+'">'
+    +(t.summary
+      ?'<div class="ai-head"><span class="ai-lbl"><span class="ai-lbl-dot"></span>Claude Analysis</span><span class="ai-sb">'+((t.score||0).toFixed(1))+' / 10</span></div><div class="ai-body">'+fmtSumm(t.summary)+'</div>'
+      :'<button class="ai-cta" onclick="aiScore(\''+id+'\')" ><svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.3 4H13L9.6 7.5l1.2 3.7L7 9 3.2 11.2l1.2-3.7L1 5h4.7z" fill="currentColor"/></svg>Analyse relevance with Claude AI</button>')
+    +'</div></div>'
+    +'<div><div class="dp-sl">Pipeline</div><div class="dp-acts">'
+    +'<button class="dpa aw" onclick="setStatus(\''+id+'\',\'Watching\')">Watch</button>'
+    +'<button class="dpa ab" onclick="setStatus(\''+id+'\',\'Bid Submitted\')">Mark Bid</button>'
+    +'<button class="dpa ag" onclick="setStatus(\''+id+'\',\'Won\')">Won</button>'
+    +'<button class="dpa ar" onclick="setStatus(\''+id+'\',\'Lost\')">Lost</button>'
+    +'<button class="dpa" onclick="setStatus(\''+id+'\',\'New\')">Reset</button>'
+    +(t.url&&t.url!=='#'?'<a class="dpa ap" href="'+t.url+'" target="_blank" rel="noopener">Portal ↗</a>':'')
+    +'</div></div>';
+  document.getElementById('dpanel').classList.add('open');
+  document.getElementById('dpbg').classList.add('open');
+  renderTable();
+}
+function closeDp(){selId=null;document.getElementById('dpanel').classList.remove('open');document.getElementById('dpbg').classList.remove('open');renderTable();}
+function fmtSumm(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+
+// ── AI SCORER ─────────────────────────────────────────────
+async function aiScore(id){
+  var t=tenders.find(function(x){return x.id===id;}),box=document.getElementById('ai-'+id);
+  if(!t||!box)return;
+  box.innerHTML='<div class="ai-head"><span class="ai-lbl"><span class="ai-lbl-dot"></span>Analysing…</span></div><div class="ai-loading"><div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><span>Running fit analysis…</span></div>';
+  var profile=cfg().profile||DEF_PROFILE;
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:450,messages:[{role:'user',content:'You are evaluating a government tender for a communications and PR agency.\n\nAGENCY:\n'+profile+'\n\nTENDER:\nTitle: '+t.title+'\nService: '+t.category+'\nValue: '+t.value_str+'\nPortal: '+t.portal+'\nDescription: '+(t.description||'').slice(0,400)+'\n\nRespond ONLY as JSON (no markdown, no extra text):\n{"score":<1.0-10.0>,"fit":"<one sentence on capability fit>","opportunity":"<one sentence on why this is or is not worth pursuing>","recommendation":"<Bid / Shortlist / Pass>"}'}]})});
+    var data=await resp.json();
+    var raw=(data.content&&data.content[0]?data.content[0].text:'{}').replace(/```json?/g,'').replace(/```/g,'').trim();
+    var d=JSON.parse(raw);
+    t.score=Math.round(parseFloat(d.score||5)*10)/10;
+    t.summary='**Fit:** '+(d.fit||'')+'\n\n**Opportunity:** '+(d.opportunity||'')+'\n\n**Recommendation:** '+(d.recommendation||'');
+    box.innerHTML='<div class="ai-head"><span class="ai-lbl"><span class="ai-lbl-dot"></span>Claude Analysis</span><span class="ai-sb">'+t.score.toFixed(1)+' / 10</span></div><div class="ai-body">'+fmtSumm(t.summary)+'</div>';
+    renderTable();renderStats();
+  }catch(err){
+    box.innerHTML='<div class="ai-head"><span class="ai-lbl" style="color:var(--red)">Error</span></div><div class="ai-body" style="color:var(--text3)">Could not reach Claude API. Ensure ANTHROPIC_API_KEY is set as a GitHub Secret.<br><small>'+esc(String(err))+'</small></div><button class="ai-cta" onclick="aiScore(\''+id+'\')">Retry</button>';
+  }
+}
+
+// ── VIEW SWITCHING ────────────────────────────────────────
+function showView(name,btn){
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+  document.querySelectorAll('.s-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('view-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
+  var titles={dashboard:'All Tenders',pipeline:'Pipeline',settings:'Settings'};
+  document.getElementById('ttitle').textContent=titles[name]||name;
+  if(name==='pipeline')renderPipeline();
+  if(name==='settings')initSetForm();
+}
+
+// ── HELPERS ───────────────────────────────────────────────
+function dl(d){if(!d)return 999;return Math.ceil((new Date(d)-new Date())/86400000);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toast(msg){var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2200);}
+function ptcls(p){if(!p)return'pt-x';var k=p.toLowerCase();if(k.includes('gem'))return'pt-gem';if(k.includes('cppp'))return'pt-cppp';if(k.includes('bhel'))return'pt-bhel';if(k.includes('ongc'))return'pt-ongc';if(k.includes('ntpc'))return'pt-ntpc';if(k.includes('state'))return'pt-state';return'pt-x';}
+function spill(s){var m={'New':['spn',''],'Watching':['spw',''],'Bid Submitted':['spb',''],'Won':['spg',''],'Lost':['spl','']};var r=m[s]||m['New'];return'<span class="sp '+r[0]+'"><span class="sp-dot"></span>'+(s||'New')+'</span>';}
+
+// ── DEMO DATA — comms & PR mandates ──────────────────────
+function demo(){
+  var td=new Date();
+  function dd(n){var x=new Date(td);x.setDate(x.getDate()+n);return x.toISOString().split('T')[0];}
+  return[
+    {id:'c01',portal:'GeM',title:'Empanelment of PR & Communications Agency — Ministry of Education',ref_no:'GEM/2026/S/4201837',category:'PR & Communications',description:'Empanelment of qualified PR and communications agency for media relations, press releases, social media management, stakeholder communications, and public outreach for Ministry of Education initiatives and campaigns.',value_str:'₹2.40 Cr',score:9.4,deadline:dd(8),status:'Watching',url:'#',summary:'**Fit:** Core service — ministry PR empanelment is a direct match for integrated communications capabilities.\n\n**Opportunity:** Ministry of Education has significant digital push underway; social and content angles are substantial.\n\n**Recommendation:** Bid'},
+    {id:'c02',portal:'CPPP',title:'Social Media Management & Digital Content Services — AIIMS New Delhi',ref_no:'CPPP/2026/IT/00891',category:'Social Media Management',description:'Comprehensive social media management including content creation, community management, analytics reporting, campaign execution, and digital outreach across platforms for AIIMS New Delhi official channels.',value_str:'₹68.00 L',score:8.9,deadline:dd(14),status:'New',url:'#',summary:''},
+    {id:'c03',portal:'GeM',title:'Integrated Communications Campaign — Swachh Bharat Urban Mission Phase II',ref_no:'GEM/2026/S/4198024',category:'Campaign Execution',description:'End-to-end integrated communications campaign including strategy, creative development, media planning, digital outreach, ground activations, influencer engagement, and impact measurement for Swachh Bharat Urban Mission.',value_str:'₹4.80 Cr',score:9.1,deadline:dd(21),status:'Bid Submitted',url:'#',summary:'**Fit:** Large integrated campaign — exactly the multi-service scope we are built for.\n\n**Opportunity:** High-visibility government flagship; strong portfolio case study.\n\n**Recommendation:** Bid'},
+    {id:'c04',portal:'State-MH',title:'Media Monitoring & Analytics Services — Maharashtra Government',ref_no:'MAHA/IT/MED/2026/447',category:'Media Monitoring',description:'24×7 media monitoring across print, digital, broadcast, and social media. Includes daily clipping reports, sentiment analysis, share of voice tracking, crisis alerts, and monthly analytics dashboards for CMO office.',value_str:'₹42.00 L',score:8.6,deadline:dd(11),status:'New',url:'#',summary:''},
+    {id:'c05',portal:'CPPP',title:'Event Publicity & Communication Support — India International Trade Fair',ref_no:'CPPP/2026/EVT/01024',category:'Event Publicity',description:'End-to-end communication support for IITF including pre-event publicity campaign, on-ground PR support, media accreditation, social media live coverage, and post-event impact reporting.',value_str:'₹88.00 L',score:8.2,deadline:dd(18),status:'Watching',url:'#',summary:''},
+    {id:'c06',portal:'GeM',title:'Digital Outreach & Awareness Campaign — PM Kisan Samman Nidhi',ref_no:'GEM/2026/S/4215093',category:'Digital Outreach',description:'Targeted digital outreach to raise awareness of PM Kisan scheme among eligible farmers. Includes vernacular content production, WhatsApp campaigns, YouTube advertising, and micro-influencer partnerships in 8 states.',value_str:'₹1.20 Cr',score:7.8,deadline:dd(25),status:'New',url:'#',summary:''},
+    {id:'c07',portal:'NTPC',title:'Corporate Communications & Reputation Management — NTPC Limited',ref_no:'NTPC/CC/REP/2026/031',category:'Reputation Management',description:'Comprehensive reputation management retainer covering crisis communications, executive thought leadership positioning, ESG communications, stakeholder engagement, and ongoing media relations for NTPC.',value_str:'₹1.60 Cr',score:8.7,deadline:dd(6),status:'New',url:'#',summary:'**Fit:** Reputation management retainer for major PSU — direct match with our capabilities.\n\n**Opportunity:** Long-term mandate with strong visibility and excellent reference value.\n\n**Recommendation:** Bid'},
+    {id:'c08',portal:'State-MH',title:'Creative Content Development — Maharashtra Tourism Campaign',ref_no:'MAHA/TOU/CRT/2026/118',category:'Creative & Content',description:'Development of creative assets including short films, photography, digital content series, OOH creatives, and full campaign identity for Maharashtra Tourism national and international awareness campaign.',value_str:'₹2.10 Cr',score:7.4,deadline:dd(30),status:'New',url:'#',summary:''},
+    {id:'c09',portal:'CPPP',title:'Communication Strategy & Implementation — National Health Authority',ref_no:'CPPP/2026/HLT/00756',category:'PR & Communications',description:'Development and implementation of comprehensive communication strategy for Ayushman Bharat Digital Mission including stakeholder mapping, messaging architecture, media relations, and multi-channel public awareness campaigns.',value_str:'₹3.20 Cr',score:9.3,deadline:dd(16),status:'New',url:'#',summary:''},
+    {id:'c10',portal:'GeM',title:'Analytics & Performance Dashboard — Digital India Communications Cell',ref_no:'GEM/2026/S/4187631',category:'Analytics & Reporting',description:'Development and operation of a unified analytics dashboard covering social media performance, earned media value, campaign reach metrics, share of voice, and real-time monitoring for Digital India Communications Cell.',value_str:'₹56.00 L',score:7.1,deadline:dd(35),status:'New',url:'#',summary:''},
+    {id:'c11',portal:'BHEL',title:'Internal Communications & Employee Engagement — BHEL Corporate',ref_no:'BHEL/HR/COMM/2026/014',category:'Creative & Content',description:'Annual internal communications program including employee newsletter, intranet content management, town hall support materials, corporate films, and employee engagement campaign content.',value_str:'₹38.00 L',score:6.8,deadline:dd(42),status:'New',url:'#',summary:''},
+    {id:'c12',portal:'CPPP',title:'Public Awareness Campaign — Ministry of Jal Shakti Water Conservation',ref_no:'CPPP/2026/JSK/01198',category:'Campaign Execution',description:'Multi-channel public awareness campaign on water conservation and Jal Jeevan Mission. Includes TV, radio, digital, OOH, and community engagement with vernacular adaptations across 12 languages and 20 states.',value_str:'₹5.60 Cr',score:8.0,deadline:dd(19),status:'New',url:'#',summary:''},
+  ];
+}
+
+// ── INIT ─────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
