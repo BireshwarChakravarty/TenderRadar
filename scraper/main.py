@@ -1,7 +1,6 @@
 """
 TenderRadar — Main Orchestrator
-Runs all enabled scrapers, scores new tenders with Claude, saves to JSON.
-Called by GitHub Actions on cron schedule.
+Strategy: RSS feeds first (not blocked), then direct scraping as fallback.
 """
 import logging
 import sys
@@ -30,7 +29,19 @@ def run():
 
     all_scraped = []
 
-    # ── GeM ──────────────────────────────────────────────────────
+    # ── STEP 1: RSS Feeds (most reliable, not IP-blocked) ─────
+    logger.info("Phase 1: RSS feeds…")
+    try:
+        from rss_scraper import scrape_all_rss
+        rss_results = scrape_all_rss()
+        all_scraped.extend(rss_results)
+        logger.info(f"✓ RSS total: {len(rss_results)} tenders")
+    except Exception as e:
+        logger.error(f"✗ RSS failed: {e}")
+
+    # ── STEP 2: Direct scrapers (fallback, may be blocked) ────
+    logger.info("Phase 2: Direct scrapers…")
+
     if SCRAPE_GEM:
         try:
             from gem_scraper import GeMScraper
@@ -40,7 +51,6 @@ def run():
         except Exception as e:
             logger.error(f"✗ GeM failed: {e}")
 
-    # ── CPPP ─────────────────────────────────────────────────────
     if SCRAPE_CPPP:
         try:
             from cppp_scraper import CPPPScraper
@@ -50,10 +60,9 @@ def run():
         except Exception as e:
             logger.error(f"✗ CPPP failed: {e}")
 
-    # ── PSU portals ───────────────────────────────────────────────
     if SCRAPE_BHEL:
         try:
-            from psu_scrapers import BHELScraper
+            from bhel_scraper import BHELScraper
             results = BHELScraper().scrape()
             all_scraped.extend(results)
             logger.info(f"✓ BHEL: {len(results)} tenders")
@@ -78,7 +87,6 @@ def run():
         except Exception as e:
             logger.error(f"✗ NTPC failed: {e}")
 
-    # ── State portals ─────────────────────────────────────────────
     if SCRAPE_STATE:
         try:
             from state_scrapers import scrape_all_states
@@ -90,37 +98,32 @@ def run():
 
     logger.info(f"\nTotal scraped (pre-dedup): {len(all_scraped)}")
 
-    # ── Deduplicate ───────────────────────────────────────────────
+    # ── Deduplicate ───────────────────────────────────────────
     truly_new, _ = merge_new_tenders(all_scraped)
-    logger.info(f"Truly new (not seen before): {len(truly_new)}")
+    logger.info(f"Truly new: {len(truly_new)} / Total in store: {len(load_existing())}")
 
-    # ── AI Score new tenders ──────────────────────────────────────
+    # ── AI Score new tenders ──────────────────────────────────
     if truly_new:
         logger.info("Running AI relevance scoring…")
         scored = score_tenders(truly_new)
-
-        # Write scores back to the stored JSON
-        existing = {}
-        from config import TENDERS_FILE
         import json
+        from config import TENDERS_FILE
         if TENDERS_FILE.exists():
             with open(TENDERS_FILE) as f:
                 data = json.load(f)
             existing = {t["id"]: t for t in data.get("tenders", [])}
-
-        for t in scored:
-            if t.id in existing:
-                existing[t.id]["score"]   = t.score
-                existing[t.id]["summary"] = t.summary
-
-        save_tenders(existing)
-        logger.info("AI scoring complete, scores saved.")
+            for t in scored:
+                if t.id in existing:
+                    existing[t.id]["score"]   = t.score
+                    existing[t.id]["summary"] = t.summary
+            save_tenders(existing)
+        logger.info("AI scoring complete.")
     else:
         logger.info("No new tenders — skipping AI scoring.")
 
     elapsed = (datetime.utcnow() - start).seconds
     logger.info("=" * 60)
-    logger.info(f"Run complete in {elapsed}s | New: {len(truly_new)} | Total: {len(all_scraped)}")
+    logger.info(f"Run complete in {elapsed}s | New: {len(truly_new)} | Total scraped: {len(all_scraped)}")
     logger.info("=" * 60)
 
 
