@@ -1,7 +1,61 @@
 {
-  "tenders": [],
+  "tenders": [
+    {
+      "id": "3a313ba7969f792e",
+      "portal": "BHEL",
+      "title": "EoI for Development of Vendors for supply of Magnetic Steel Sheet Varnish to BHEL FSIP Jagdishpur , Amethi .",
+      "ref_no": "BHEL FSIP",
+      "category": "Supplies",
+      "description": "EoI for Development of Vendors for supply of Magnetic Steel Sheet Varnish to BHEL FSIP Jagdishpur , Amethi .",
+      "value_raw": 0.0,
+      "value_str": "N/A",
+      "deadline": "2024-04-06",
+      "url": "http://www.bhel.com/development-vendors-supply-magnetic-steel-sheet-varnish-bhel",
+      "status": "New",
+      "score": 5.0,
+      "summary": "AI scoring unavailable.",
+      "scraped_at": "2026-04-10T13:47:31.219575",
+      "alerted": false
+    },
+    {
+      "id": "cd098af65f497bba",
+      "portal": "BHEL",
+      "title": "BHEL, Tiruchirappalli invites new Suppliers for the following:1) Fabrication of steel items / boiler components under ‘with BHEL material / with Vendor’s material’ categories for various projects (Dept.: BHEL Trichy Outsourcing - OS)2) Supply of vari",
+      "ref_no": "BHEL material",
+      "category": "IT Equipment",
+      "description": "BHEL, Tiruchirappalli invites new Suppliers for the following:1) Fabrication of steel items / boiler components under ‘with BHEL material / with Vendor’s material’ categories for various projects (Dept.: BHEL Trichy Outsourcing - OS)2) Supply of various items listed in BHEL website(Dept.: BHEL Trichy Material Management - MM)Application for Supplier registration is to be submitted in Online portal by visiting, https://supplier.bhel.in and by selecting the respective Unit.",
+      "value_raw": 0.0,
+      "value_str": "N/A",
+      "deadline": "2024-07-10",
+      "url": "http://www.bhel.com/notification-registration-suppliers-5",
+      "status": "New",
+      "score": 5.0,
+      "summary": "AI scoring unavailable.",
+      "scraped_at": "2026-04-10T13:47:31.219439",
+      "alerted": false
+    },
+    {
+      "id": "641b13217e76e178",
+      "portal": "BHEL",
+      "title": "Expression of Interest sought for supply of Raw materials to BHEL Canteens for Food Preparation",
+      "ref_no": "BHEL Canteens",
+      "category": "Supplies",
+      "description": "Expression of Interest sought for supply of Raw materials to BHEL Canteens for Food Preparation",
+      "value_raw": 0.0,
+      "value_str": "N/A",
+      "deadline": "2024-10-15",
+      "url": "http://www.bhel.com/expression-interest-supply-raw-materials-bhel-canteens-food-preparation-6",
+      "status": "New",
+      "score": 5.0,
+      "summary": "AI scoring unavailable.",
+      "scraped_at": "2026-04-10T13:47:31.219234",
+      "alerted": false
+    }
+  ],
   "meta": {
-    "total": 0,
-    "portals": []
+    "total": 3,
+    "portals": [
+      "BHEL"
+    ]
   }
 }
