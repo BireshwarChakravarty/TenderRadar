@@ -263,4 +263,4 @@ python alerts.py
 
 ---
 
-*Built with Python + GitHub Actions + GitHub Pages. Zero infrastructure, zero monthly cost.*
+*Built with Python + GitHub Actions + GitHub Pages. Zero infrastructure, zero monthly cost. ©Bireshwar Chakravarty*
