@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TenderRadar — Communications &amp; PR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+:root{
+  --bg:#F7F5F2;--bg-card:#FFFFFF;--bg-side:#FFFFFF;--bg-hover:#F0EEEb;--bg-input:#F4F2EF;--bg-muted:#ECEAE7;
+  --text:#18181B;--text2:#52525B;--text3:#A1A1AA;
+  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);
+  --accent:#1D4ED8;--accent-s:#EFF6FF;--accent-t:#1D4ED8;
+  --green:#15803D;--green-s:#F0FDF4;
+  --amber:#B45309;--amber-s:#FFFBEB;
+  --red:#B91C1C;--red-s:#FEF2F2;
+  --purple:#6D28D9;--purple-s:#F5F3FF;
+  --slate:#475569;--slate-s:#F1F5F9;
+  --sh-sm:0 1px 3px rgba(0,0,0,0.06);
+  --sh-md:0 4px 16px rgba(0,0,0,0.09);
+  --sh-lg:0 20px 50px rgba(0,0,0,0.14);
+  --r:6px;--rm:10px;--rl:14px;
+  --sw:220px;
+}
+[data-theme="dark"]{
+  --bg:#0C0C0E;--bg-card:#18181B;--bg-side:#131315;--bg-hover:#27272A;--bg-input:#27272A;--bg-muted:#202023;
+  --text:#FAFAF9;--text2:#A1A1AA;--text3:#52525B;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --accent:#3B82F6;--accent-s:rgba(59,130,246,0.13);--accent-t:#93C5FD;
+  --green:#22C55E;--green-s:rgba(34,197,94,0.13);
+  --amber:#F59E0B;--amber-s:rgba(245,158,11,0.13);
+  --red:#EF4444;--red-s:rgba(239,68,68,0.13);
+  --purple:#A78BFA;--purple-s:rgba(167,139,250,0.13);
+  --slate:#94A3B8;--slate-s:rgba(148,163,184,0.10);
+  --sh-sm:0 1px 3px rgba(0,0,0,0.5);
+  --sh-md:0 4px 16px rgba(0,0,0,0.5);
+  --sh-lg:0 20px 50px rgba(0,0,0,0.65);
+}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.5}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--bg-side);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:60}
+.slogo{padding:18px 16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.smark{width:30px;height:30px;background:var(--text);border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.smark svg{width:14px;height:14px;color:var(--bg-card)}
+.sname{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--text);letter-spacing:-.3px}
+.ssub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;margin-top:1px}
+.snav{padding:10px 8px;flex:1;display:flex;flex-direction:column;gap:1px}
+.snlbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;padding:8px 8px 4px}
+.sbtn{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border-radius:var(--r);border:none;background:none;color:var(--text2);font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .15s;text-align:left}
+.sbtn:hover{background:var(--bg-hover);color:var(--text)}
+.sbtn.active{background:var(--accent-s);color:var(--accent-t);font-weight:500}
+.sbtn svg{width:15px;height:15px;flex-shrink:0;opacity:.65}
+.sbtn.active svg{opacity:1}
+.sbadge{margin-left:auto;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;border-radius:20px;min-width:18px;text-align:center}
+.sfoot{border-top:1px solid var(--border);padding:10px 8px}
+.ssync{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:var(--r)}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;animation:pdot 2.5s ease-in-out infinite}
+.sdot.live{background:var(--green)}
+.sdot.demo{background:var(--amber)}
+.sdot.err{background:var(--red)}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:.35}}
+.stxt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);line-height:1.4}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sw);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── TOPBAR ── */
+.topbar{height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:0 22px;position:sticky;top:0;z-index:50;flex-shrink:0}
+.ttitle{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--text);letter-spacing:-.2px}
+.tspace{flex:1}
+.tchip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:var(--bg-muted);padding:4px 9px;border-radius:var(--r);border:1px solid var(--border);white-space:nowrap}
+.ttheme{width:34px;height:34px;border-radius:var(--r);border:1px solid var(--border2);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .15s;flex-shrink:0}
+.ttheme:hover{background:var(--bg-hover);color:var(--text)}
+.ttheme svg{width:15px;height:15px}
+
+/* ── DATA SOURCE BAR ── */
+.dsbar{background:var(--accent-s);border-bottom:1px solid rgba(59,130,246,.2);padding:7px 22px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent-t);flex-shrink:0}
+[data-theme="dark"] .dsbar{border-color:rgba(59,130,246,.15)}
+.dsbar.err{background:var(--red-s);color:var(--red);border-color:rgba(185,28,28,.2)}
+[data-theme="dark"] .dsbar.err{border-color:rgba(239,68,68,.2)}
+.dsbar-url{opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.dsbar-btn{background:none;border:1px solid currentColor;border-radius:var(--r);padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:inherit;cursor:pointer;opacity:.8;transition:opacity .15s;white-space:nowrap}
+.dsbar-btn:hover{opacity:1}
+
+/* ── CONTENT ── */
+.content{padding:20px 22px 28px;flex:1;display:flex;flex-direction:column;gap:18px;min-width:0}
+.view{display:none;flex-direction:column;gap:18px}
+.view.active{display:flex}
+
+/* ── STAT CARDS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;cursor:pointer;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden}
+.sc:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--rl) var(--rl) 0 0}
+.sc.ca::after{background:var(--accent)}.sc.cg::after{background:var(--green)}.sc.cb::after{background:var(--amber)}.sc.cp::after{background:var(--purple)}
+.sclbl{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px}
+.scval{font-family:'Fraunces',serif;font-size:34px;font-weight:300;line-height:1;margin-bottom:4px}
+.sc.ca .scval{color:var(--accent)}.sc.cg .scval{color:var(--green)}.sc.cb .scval{color:var(--amber)}.sc.cp .scval{color:var(--purple)}
+.scsub{font-size:11px;color:var(--text3)}
+
+/* ── FILTER BAR ── */
+.fbar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rl);padding:12px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fsrch{position:relative;flex:1;min-width:160px}
+.fsrch input{width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px 8px 30px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.fsrch input::placeholder{color:var(--text3)}
+.fsrch input:focus{border-color:var(--accent)}
+.fsrch .fi{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;display:flex}
+.fsrch .fi svg{width:13px;height:13px}
+.fsel{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;transition:border-color .15s}
+.fsel:focus{border-color:var(--accent)}
+.fsel option{background:var(--bg-card);color:var(--text)}
+.fsep{width:1px;height:18px;background:var(--border2);flex-shrink:0}
+.fcount{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap;margin-left:auto}
+
+/* ── TABLE ── */
+.tcard{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+col.c0{width:88px}col.c1{width:auto}col.c2{width:144px}col.c3{width:104px}col.c4{width:104px}col.c5{width:96px}col.c6{width:106px}
+thead{background:var(--bg);border-bottom:1px solid var(--border)}
+th{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);padding:10px 14px;text-align:left;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--bg-hover)}
+tbody tr.sel{background:var(--accent-s)}
+td{padding:12px 14px;vertical-align:middle}
+
+/* Cell types */
+.tm{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%}
+.tr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
+.vtag{display:inline-block;font-size:11px;color:var(--text2);background:var(--bg-muted);padding:2px 8px;border-radius:20px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.vmono{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap}
+.dl{display:flex;flex-direction:column;gap:1px}
+.dlm{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;white-space:nowrap}
+.dl-ok{color:var(--text2)}.dl-soon{color:var(--amber)}.dl-urg{color:var(--red)}.dl-exp{color:var(--text3);text-decoration:line-through}
+.dls{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)}
+.scbar{display:flex;align-items:center;gap:7px}
+.scn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;min-width:28px}
+.sct{flex:1;height:3px;background:var(--bg-muted);border-radius:2px;overflow:hidden;min-width:28px}
+.scf{height:100%;border-radius:2px;transition:width .5s}
+.sp{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.spdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.spn{background:var(--slate-s);color:var(--slate)}.spn .spdot{background:var(--slate)}
+.spw{background:var(--accent-s);color:var(--accent-t)}.spw .spdot{background:var(--accent)}
+.spb{background:var(--purple-s);color:var(--purple)}.spb .spdot{background:var(--purple)}
+.spg{background:var(--green-s);color:var(--green)}.spg .spdot{background:var(--green)}
+.spl{background:var(--red-s);color:var(--red)}.spl .spdot{background:var(--red)}
+
+/* Portal tags */
+.ptag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.3px;padding:3px 7px;border-radius:var(--r);border:1px solid transparent;white-space:nowrap;line-height:1.4}
+.pt-gem{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
+.pt-cppp{background:#F5F3FF;color:#6D28D9;border-color:#DDD6FE}
+.pt-bhel{background:#F0FDF4;color:#15803D;border-color:#BBF7D0}
+.pt-ongc{background:#FFFBEB;color:#B45309;border-color:#FDE68A}
+.pt-ntpc{background:#FFF1F2;color:#BE123C;border-color:#FECDD3}
+.pt-state{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
+.pt-x{background:var(--slate-s);color:var(--slate);border-color:var(--border2)}
+[data-theme="dark"] .pt-gem{background:rgba(59,130,246,.12);color:#93C5FD;border-color:rgba(59,130,246,.25)}
+[data-theme="dark"] .pt-cppp{background:rgba(139,92,246,.12);color:#C4B5FD;border-color:rgba(139,92,246,.25)}
+[data-theme="dark"] .pt-bhel{background:rgba(34,197,94,.12);color:#86EFAC;border-color:rgba(34,197,94,.25)}
+[data-theme="dark"] .pt-ongc{background:rgba(245,158,11,.12);color:#FCD34D;border-color:rgba(245,158,11,.25)}
+[data-theme="dark"] .pt-ntpc{background:rgba(244,63,94,.12);color:#FDA4AF;border-color:rgba(244,63,94,.25)}
+[data-theme="dark"] .pt-state{background:rgba(249,115,22,.12);color:#FDBA74;border-color:rgba(249,115,22,.25)}
+
+/* Empty state */
+.empty{display:none;padding:56px 24px;text-align:center}
+.eico{width:44px;height:44px;background:var(--bg-muted);border-radius:var(--rl);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.eico svg{width:20px;height:20px;color:var(--text3)}
+.ett{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.ets{font-size:12px;color:var(--text3)}
+
+/* ── DETAIL PANEL ── */
+.dpbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:70;backdrop-filter:blur(3px)}
+.dpbg.open{display:block}
+.dp{position:fixed;right:0;top:0;bottom:0;width:448px;background:var(--bg-card);border-left:1px solid var(--border);z-index:80;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh-lg)}
+.dp.open{transform:translateX(0)}
+.dph{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;flex-shrink:0}
+.dpx{width:28px;height:28px;border:1px solid var(--border2);border-radius:var(--r);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:all .15s;flex-shrink:0;margin-top:2px}
+.dpx:hover{background:var(--bg-hover);color:var(--text)}
+.dpx svg{width:12px;height:12px}
+.dptt{flex:1;min-width:0}
+.dptag{margin-bottom:6px}
+.dpti{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.4;letter-spacing:-.2px}
+.dpbody{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
+.dpsl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:9px}
+.dpgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dpf{background:var(--bg);border:1px solid var(--border);border-radius:var(--rm);padding:10px 12px}
+.dpf.full{grid-column:1/-1}
+.dpfl{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:3px}
+.dpfv{font-size:13px;font-weight:500;color:var(--text)}
+.dpfv.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.dpdesc{background:var(--bg);border:1px solid var(--border);border-radius:var(--rm);padding:12px 14px;font-size:13px;line-height:1.78;color:var(--text2)}
+.aiwrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--rm);overflow:hidden}
+.aihead{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid var(--border);background:var(--bg-card)}
+.ailbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;color:var(--accent-t);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.aildot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.aisb{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text);background:var(--bg-muted);padding:2px 7px;border-radius:var(--r)}
+.aibody{padding:13px;font-size:13px;line-height:1.78;color:var(--text2)}
+.aibody strong{color:var(--text);font-weight:500}
+.aicta{width:100%;padding:13px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--accent-t);transition:background .15s}
+.aicta:hover{background:var(--bg-hover)}
+.aicta svg{width:14px;height:14px}
+.aiload{padding:14px 13px;display:flex;align-items:center;gap:8px;color:var(--text3);font-size:13px}
+.aidots{display:flex;gap:3px}
+.aidot{width:4px;height:4px;border-radius:50%;background:var(--accent);animation:aiblink 1.2s ease-in-out infinite}
+.aidot:nth-child(2){animation-delay:.2s}.aidot:nth-child(3){animation-delay:.4s}
+@keyframes aiblink{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+.dpacts{display:flex;flex-wrap:wrap;gap:6px}
+.dpa{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--r);border:1px solid var(--border2);background:none;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;color:var(--text2);transition:all .15s}
+.dpa:hover{background:var(--bg-hover);color:var(--text)}
+.dpa.aw{border-color:rgba(59,130,246,.3);color:var(--accent-t)}.dpa.aw:hover{background:var(--accent-s)}
+.dpa.ab{border-color:rgba(109,40,217,.3);color:var(--purple)}.dpa.ab:hover{background:var(--purple-s)}
+.dpa.ag{border-color:rgba(21,128,61,.3);color:var(--green)}.dpa.ag:hover{background:var(--green-s)}
+.dpa.ar{border-color:rgba(185,28,28,.3);color:var(--red)}.dpa.ar:hover{background:var(--red-s)}
+.dpa.ap{border-color:var(--border2);margin-left:auto}
+
+/* ── PIPELINE ── */
+.plgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+.plcol{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.plhead{padding:11px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.plname{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.plcnt{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)}
+.plcards{padding:8px;display:flex;flex-direction:column;gap:5px;min-height:48px}
+.plcard{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:9px 10px;cursor:pointer;transition:border-color .15s}
+.plcard:hover{border-color:var(--border2);box-shadow:var(--sh-sm)}
+.plct{font-size:11px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.plcm{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.plsc{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500}
+.plem{padding:14px 8px;text-align:center;font-size:11px;color:var(--text3)}
+
+/* ── SETTINGS ── */
+.setwrap{max-width:530px;display:flex;flex-direction:column;gap:14px}
+.setcard{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.setch{padding:13px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.setct{font-size:13px;font-weight:600;color:var(--text)}
+.setcs{font-size:11px;color:var(--text3);margin-top:2px}
+.setbody{padding:14px 16px;display:flex;flex-direction:column;gap:11px}
+.setrow{display:grid;grid-template-columns:130px 1fr;align-items:center;gap:12px}
+.setlbl{font-size:12px;color:var(--text2)}
+.setinp{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;width:100%;transition:border-color .15s}
+.setinp:focus{border-color:var(--accent)}
+.setinp::placeholder{color:var(--text3)}
+textarea.setinp{resize:vertical;min-height:76px;font-size:12px;line-height:1.6;grid-column:1/-1}
+.setsave{display:inline-flex;align-items:center;gap:6px;background:var(--text);color:var(--bg-card);border:none;border-radius:var(--r);padding:9px 20px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:2px}
+.setsave:hover{opacity:.85}
+.setsave svg{width:14px;height:14px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg-card);font-size:12px;font-weight:500;padding:8px 18px;border-radius:20px;z-index:200;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;box-shadow:var(--sh-md)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="slogo">
+    <div class="smark">
+      <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2.2" fill="currentColor"/><path d="M7 1.5v1.3M7 11.2v1.3M1.5 7h1.3M11.2 7h1.3M3.05 3.05l.92.92M10.03 10.03l.92.92M3.05 10.95l.92-.92M10.03 3.97l.92-.92" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+    </div>
+    <div><div class="sname">TenderRadar</div><div class="ssub">Comms &amp; PR</div></div>
+  </div>
+  <nav class="snav">
+    <div class="snlbl">Monitor</div>
+    <button class="sbtn active" id="nb-dash" onclick="showView('dashboard',this)">
+      <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+      All Tenders
+    </button>
+    <button class="sbtn" id="nb-pipe" onclick="showView('pipeline',this)">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M1.5 4h11M1.5 7h8M1.5 10h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Pipeline
+      <span class="sbadge" id="pbadge">0</span>
+    </button>
+    <div class="snlbl" style="margin-top:6px">System</div>
+    <button class="sbtn" id="nb-set" onclick="showView('settings',this)">
+      <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/><path d="M7 1v1.2M7 11.8V13M1 7h1.2M11.8 7H13M2.75 2.75l.85.85M10.4 10.4l.85.85M2.75 11.25l.85-.85M10.4 3.6l.85-.85" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Settings
+    </button>
+  </nav>
+  <div class="sfoot">
+    <div class="ssync">
+      <div class="sdot demo" id="sdot"></div>
+      <span class="stxt" id="synclbl">Loading data…</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <header class="topbar">
+    <span class="ttitle" id="ttitle">All Tenders</span>
+    <div class="tspace"></div>
+    <span class="tchip" id="pchip"></span>
+    <span class="tchip" id="tchip"></span>
+    <button class="ttheme" onclick="toggleTheme()" title="Toggle light / dark">
+      <svg id="ico-moon" viewBox="0 0 14 14" fill="none"><path d="M12.5 9A5 5 0 014 1.5 6 6 0 1012.5 9z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg id="ico-sun" viewBox="0 0 14 14" fill="none" style="display:none"><circle cx="7" cy="7" r="2.2" stroke="currentColor" stroke-width="1.3"/><path d="M7 1v1.3M7 11.7V13M1 7h1.3M11.7 7H13M2.75 2.75l.92.92M10.33 10.33l.92.92M2.75 11.25l.92-.92M10.33 3.67l.92-.92" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <!-- DATA SOURCE STATUS BAR -->
+  <div class="dsbar" id="dsbar" style="display:none">
+    <span id="dsbar-msg"></span>
+    <span class="dsbar-url" id="dsbar-url"></span>
+    <button class="dsbar-btn" onclick="loadData()">↻ Refresh</button>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD VIEW -->
+    <div class="view active" id="view-dashboard">
+      <div class="stats" id="stats-row"></div>
+      <div class="fbar">
+        <div class="fsrch">
+          <span class="fi"><svg viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 9.5L13 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+          <input type="text" id="si" placeholder="Search mandates, service areas, portals…" oninput="renderTable()">
+        </div>
+        <div class="fsep"></div>
+        <select class="fsel" id="fp" onchange="renderTable()"><option value="">All portals</option></select>
+        <select class="fsel" id="fs" onchange="renderTable()"><option value="">All services</option></select>
+        <select class="fsel" id="fst" onchange="renderTable()">
+          <option value="">All statuses</option>
+          <option>New</option><option>Watching</option>
+          <option>Bid Submitted</option><option>Won</option><option>Lost</option>
+        </select>
+        <select class="fsel" id="fsc" onchange="renderTable()">
+          <option value="">Any score</option>
+          <option value="8">Score ≥ 8</option>
+          <option value="7">Score ≥ 7</option>
+          <option value="6">Score ≥ 6</option>
+        </select>
+        <span class="fcount" id="fcount"></span>
+      </div>
+      <div class="tcard">
+        <div class="tscroll">
+          <table>
+            <colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+            <thead><tr><th>Portal</th><th>Tender / Mandate</th><th>Service Area</th><th>Value</th><th>Deadline</th><th>Fit Score</th><th>Status</th></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="empty" id="empt">
+            <div class="eico"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="ett">No tenders match your filters</div>
+            <div class="ets">Try adjusting your search or filters above</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE VIEW -->
+    <div class="view" id="view-pipeline">
+      <div class="plgrid" id="plgrid"></div>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div class="view" id="view-settings">
+      <div class="setwrap">
+        <div class="setcard">
+          <div class="setch"><div class="setct">Data Source</div><div class="setcs">Where your scraped tender JSON lives — must be inside <code>docs/data/</code></div></div>
+          <div class="setbody">
+            <div class="setrow"><span class="setlbl">GitHub repo</span><input class="setinp" id="cfg-repo" placeholder="username/tenderradar"></div>
+            <div class="setrow"><span class="setlbl">Custom JSON URL</span><input class="setinp" id="cfg-url" placeholder="Leave blank — auto-detects from GitHub Pages URL"></div>
+            <div class="setrow"><span class="setlbl">Min score to show</span><input class="setinp" id="cfg-sc" type="number" min="0" max="10" step="0.5" placeholder="0 — show all"></div>
+          </div>
+        </div>
+        <div class="setcard">
+          <div class="setch"><div class="setct">Agency Profile</div><div class="setcs">Used by Claude AI when scoring fit in the detail panel</div></div>
+          <div class="setbody">
+            <textarea class="setinp" id="cfg-profile" rows="5" placeholder="Describe your agency's services and focus areas…"></textarea>
+          </div>
+        </div>
+        <button class="setsave" onclick="saveSettings()">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5 6.5-6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Save &amp; Reload Data
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="dpbg" id="dpbg" onclick="closeDp()"></div>
+<div class="dp" id="dpanel">
+  <div class="dph">
+    <button class="dpx" onclick="closeDp()"><svg viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    <div class="dptt"><div class="dptag" id="dptag"></div><div class="dpti" id="dpti"></div></div>
+  </div>
+  <div class="dpbody" id="dpbody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────
+var ALL = [], selId = null;
+var STAGES = ['New','Watching','Bid Submitted','Won','Lost'];
+var SCOL = {New:'var(--slate)',Watching:'var(--accent)','Bid Submitted':'var(--purple)',Won:'var(--green)',Lost:'var(--red)'};
+var DEF_PROFILE = 'Communications and PR agency specialising in integrated communications strategy, social media management, digital outreach, creative content development, media monitoring, event publicity, and communication support. We execute mandates involving strategy, content, creative, digital engagement, reputation management, analytics, and campaign execution for government, public-sector, institutional, and corporate clients in India.';
+
+// ── THEME ──────────────────────────────────────────────
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('ico-moon').style.display = t === 'dark' ? 'none' : 'block';
+  document.getElementById('ico-sun').style.display  = t === 'dark' ? 'block' : 'none';
+}
+function toggleTheme() {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(t); localStorage.setItem('tr_theme', t);
+}
+applyTheme(localStorage.getItem('tr_theme') || 'light');
+
+// ── SETTINGS ──────────────────────────────────────────
+function cfg() {
+  return {
+    repo:    localStorage.getItem('tr_repo')    || '',
+    url:     localStorage.getItem('tr_url')     || '',
+    minSc:   parseFloat(localStorage.getItem('tr_min_sc') || '0'),
+    profile: localStorage.getItem('tr_profile') || DEF_PROFILE
+  };
+}
+function saveSettings() {
+  localStorage.setItem('tr_repo',    document.getElementById('cfg-repo').value.trim());
+  localStorage.setItem('tr_url',     document.getElementById('cfg-url').value.trim());
+  localStorage.setItem('tr_min_sc',  document.getElementById('cfg-sc').value || '0');
+  localStorage.setItem('tr_profile', document.getElementById('cfg-profile').value.trim() || DEF_PROFILE);
+  toast('Settings saved'); setTimeout(function(){loadData();showView('dashboard',document.getElementById('nb-dash'));}, 600);
+}
+function initSetForm() {
+  var s = cfg();
+  document.getElementById('cfg-repo').value    = s.repo;
+  document.getElementById('cfg-url').value     = s.url;
+  document.getElementById('cfg-sc').value      = s.minSc || '';
+  document.getElementById('cfg-profile').value = s.profile;
+}
+
+// ── DATA LOADING ───────────────────────────────────────
+async function loadData() {
+  setStatus('demo', 'Loading…');
+  var s = cfg();
+
+  // Build URL list — most specific first
+  var urls = [];
+
+  // 1. Manual override from settings
+  if (s.url) urls.push(s.url);
+
+  // 2. Repo override from settings
+  if (s.repo) urls.push('https://raw.githubusercontent.com/' + s.repo + '/main/docs/data/tenders.json');
+
+  // 3. Auto-detect from GitHub Pages URL
+  // e.g. https://username.github.io/reponame/ → username / reponame
+  var h = window.location.hostname; // e.g. "username.github.io"
+  var p = window.location.pathname; // e.g. "/reponame/"
+  if (h.endsWith('.github.io')) {
+    var user = h.replace('.github.io', '');
+    var parts = p.split('/').filter(function(x){ return x && x !== 'index.html'; });
+    var repo = parts.length > 0 ? parts[0] : '';
+    if (user && repo) {
+      urls.push('https://raw.githubusercontent.com/' + user + '/' + repo + '/main/docs/data/tenders.json');
+    }
+    // Also try if pages is deployed at root (username.github.io)
+    if (user) {
+      urls.push('https://raw.githubusercontent.com/' + user + '/' + user + '.github.io/main/docs/data/tenders.json');
+    }
+  }
+
+  // 4. Same-origin relative path (works on GitHub Pages and local dev)
+  //    Since index.html is in docs/, data/ is at docs/data/
+  urls.push('./data/tenders.json');
+  urls.push('data/tenders.json');
+
+  var loaded = false, usedUrl = '';
+
+  for (var i = 0; i < urls.length; i++) {
+    var url = urls[i];
+    try {
+      var r = await fetch(url + '?_=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) continue;
+      var d = await r.json();
+      if (!Array.isArray(d.tenders)) continue;
+      ALL = d.tenders;
+      loaded = true;
+      usedUrl = url;
+      break;
+    } catch (e) {
+      // try next
+    }
+  }
+
+  // Apply locally stored status overrides
+  var ov = JSON.parse(localStorage.getItem('tr_sts') || '{}');
+  for (var j = 0; j < ALL.length; j++) {
+    if (ov[ALL[j].id]) ALL[j].status = ov[ALL[j].id];
+  }
+
+  if (loaded && ALL.length > 0) {
+    setStatus('live', 'Live · ' + ALL.length + ' tenders · ' + new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'}));
+    showDsBar(false, usedUrl);
+  } else {
+    // Fall back to sample data
+    ALL = demo();
+    setStatus('demo', 'Sample data — scraper not run yet');
+    showDsBar(true, urls.join(' → '));
+  }
+
+  populateFilters();
+  renderStats();
+  renderTable();
+  renderPipeline();
+  updateBadge();
+  var portals = [...new Set(ALL.map(function(t){ return t.portal; }))];
+  document.getElementById('pchip').textContent = portals.length + ' portals';
+  document.getElementById('tchip').textContent = ALL.length + ' tenders';
+}
+
+function setStatus(type, msg) {
+  var dot = document.getElementById('sdot');
+  var lbl = document.getElementById('synclbl');
+  dot.className = 'sdot ' + type;
+  lbl.textContent = msg;
+}
+
+function showDsBar(isErr, url) {
+  var bar = document.getElementById('dsbar');
+  var msg = document.getElementById('dsbar-msg');
+  var urlEl = document.getElementById('dsbar-url');
+  bar.style.display = 'flex';
+  if (isErr) {
+    bar.className = 'dsbar err';
+    msg.textContent = 'Could not load live data. Tried: ';
+  } else {
+    bar.className = 'dsbar';
+    msg.textContent = 'Loaded from: ';
+  }
+  urlEl.textContent = url;
+}
+
+function setStatus2(id, st) {
+  var t = ALL.find(function(x){ return x.id === id; });
+  if (!t) return;
+  t.status = st;
+  var ov = JSON.parse(localStorage.getItem('tr_sts') || '{}');
+  ov[id] = st;
+  localStorage.setItem('tr_sts', JSON.stringify(ov));
+  renderTable(); renderPipeline(); updateBadge();
+  if (selId === id) openDp(id);
+  toast('Status → ' + st);
+}
+
+// ── FILTERS ───────────────────────────────────────────
+function populateFilters() {
+  var portals = [...new Set(ALL.map(function(t){ return t.portal; }))].sort();
+  var svcs    = [...new Set(ALL.map(function(t){ return t.category || 'General'; }))].sort();
+  var ps = document.getElementById('fp'), ss = document.getElementById('fs');
+  var pv = ps.value, sv = ss.value;
+  ps.innerHTML = '<option value="">All portals</option>'  + portals.map(function(p){ return '<option>'+p+'</option>'; }).join('');
+  ss.innerHTML = '<option value="">All services</option>' + svcs.map(function(s){ return '<option>'+s+'</option>'; }).join('');
+  ps.value = pv; ss.value = sv;
+}
+
+function getFiltered() {
+  var s = cfg();
+  var q   = document.getElementById('si').value.toLowerCase();
+  var fp  = document.getElementById('fp').value;
+  var fs  = document.getElementById('fs').value;
+  var fst = document.getElementById('fst').value;
+  var fsc = parseFloat(document.getElementById('fsc').value) || s.minSc;
+  return ALL.filter(function(t) {
+    return (!q   || (t.title + t.category + t.portal + t.ref_no + (t.description||'')).toLowerCase().includes(q))
+        && (!fp  || t.portal === fp)
+        && (!fs  || (t.category||'General') === fs)
+        && (!fst || t.status === fst)
+        && (!fsc || (t.score||0) >= fsc);
+  });
+}
+
+// ── STATS ─────────────────────────────────────────────
+function renderStats() {
+  var high = ALL.filter(function(t){ return (t.score||0)>=8; }).length;
+  var soon = ALL.filter(function(t){ var d=daysLeft(t.deadline); return d>=0&&d<=10; }).length;
+  var pipe = ALL.filter(function(t){ return t.status==='Watching'||t.status==='Bid Submitted'; }).length;
+  document.getElementById('stats-row').innerHTML =
+    mkStat('Total Tenders', ALL.length, 'Across all portals', 'ca', "clearF()") +
+    mkStat('High Fit',      high,       'Fit score ≥ 8.0',   'cg', "setSc('8')") +
+    mkStat('Closing Soon',  soon,       'Within 10 days',    'cb', '') +
+    mkStat('In Pipeline',   pipe,       'Watching + Bid',    'cp', "setSt('Watching')");
+}
+function mkStat(lbl,val,sub,cls,oc) {
+  return '<div class="sc '+cls+'"'+(oc?' onclick="'+oc+'" style="cursor:pointer"':'')+'>'+
+    '<div class="sclbl">'+lbl+'</div><div class="scval">'+val+'</div><div class="scsub">'+sub+'</div></div>';
+}
+function clearF() { document.getElementById('fst').value=''; document.getElementById('fsc').value=''; renderTable(); }
+function setSc(v) { document.getElementById('fsc').value=v; renderTable(); }
+function setSt(v) { document.getElementById('fst').value=v; renderTable(); }
+
+// ── TABLE ─────────────────────────────────────────────
+function renderTable() {
+  var list = getFiltered();
+  var tbody = document.getElementById('tbody');
+  var empt  = document.getElementById('empt');
+  document.getElementById('fcount').textContent = list.length + ' results';
+  if (!list.length) { tbody.innerHTML=''; empt.style.display='block'; return; }
+  empt.style.display = 'none';
+  tbody.innerHTML = list.map(function(t) {
+    var d = daysLeft(t.deadline);
+    var dc = 'dl-ok', dlbl = d + 'd';
+    if (d < 0) { dc='dl-exp'; dlbl='Expired'; }
+    else if (d===0) { dc='dl-urg'; dlbl='Today'; }
+    else if (d<=3)  { dc='dl-urg'; dlbl=d+'d left'; }
+    else if (d<=10) { dc='dl-soon'; dlbl=d+'d left'; }
+    else dlbl = d+'d left';
+    var sc = t.score||0;
+    var scc = sc>=8.5?'var(--green)':sc>=7?'var(--amber)':sc>=5?'var(--text3)':'var(--red)';
+    return '<tr class="'+(selId===t.id?'sel':'')+'" onclick="openDp(\''+t.id+'\')">'
+      + '<td><span class="ptag '+ptcls(t.portal)+'">'+esc(t.portal)+'</span></td>'
+      + '<td><span class="tm">'+esc(t.title||'')+'</span><span class="tr">'+esc(t.ref_no||'')+' · '+esc(t.category||'General')+'</span></td>'
+      + '<td><span class="vtag">'+esc(t.category||'General')+'</span></td>'
+      + '<td><span class="vmono">'+esc(t.value_str||'N/A')+'</span></td>'
+      + '<td><div class="dl"><span class="dlm '+dc+'">'+dlbl+'</span><span class="dls">'+esc(t.deadline||'')+'</span></div></td>'
+      + '<td><div class="scbar"><span class="scn" style="color:'+scc+'">'+sc.toFixed(1)+'</span><div class="sct"><div class="scf" style="width:'+(sc*10)+'%;background:'+scc+'"></div></div></div></td>'
+      + '<td>'+spill(t.status)+'</td>'
+      + '</tr>';
+  }).join('');
+}
+
+// ── PIPELINE ──────────────────────────────────────────
+function renderPipeline() {
+  document.getElementById('plgrid').innerHTML = STAGES.map(function(col) {
+    var cards = ALL.filter(function(t){ return t.status===col; });
+    var color = SCOL[col]||'var(--slate)';
+    return '<div class="plcol"><div class="plhead"><span class="plname" style="color:'+color+'">'+col+'</span><span class="plcnt">'+cards.length+'</span></div>'
+      + '<div class="plcards">'
+      + (cards.length ? cards.map(function(t) {
+          var sc=t.score||0, scc=sc>=8?'var(--green)':sc>=6?'var(--amber)':'var(--text3)';
+          return '<div class="plcard" onclick="openDp(\''+t.id+'\')">'
+            +'<div class="plct">'+esc(t.title||'')+'</div>'
+            +'<div class="plcm"><span class="ptag '+ptcls(t.portal)+'" style="font-size:8px">'+esc(t.portal)+'</span>'
+            +'<span class="plsc" style="color:'+scc+'">'+sc.toFixed(1)+'</span></div></div>';
+        }).join('') : '<div class="plem">Empty</div>')
+      + '</div></div>';
+  }).join('');
+}
+
+function updateBadge() {
+  document.getElementById('pbadge').textContent = ALL.filter(function(t){ return t.status==='Watching'||t.status==='Bid Submitted'; }).length;
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────
+function openDp(id) {
+  var t = ALL.find(function(x){ return x.id===id; });
+  if (!t) return;
+  selId = id;
+  document.getElementById('dptag').innerHTML = '<span class="ptag '+ptcls(t.portal)+'">'+esc(t.portal)+'</span>';
+  document.getElementById('dpti').textContent = t.title||'';
+  var d = daysLeft(t.deadline);
+  var dlc = (d>=0&&d<=10)?'var(--amber)':d<0?'var(--red)':'var(--text)';
+  var dlstr = d<0?'Expired':(d===0?'Today':d+'d left');
+  document.getElementById('dpbody').innerHTML =
+    '<div><div class="dpsl">Overview</div><div class="dpgrid">'
+    +'<div class="dpf"><div class="dpfl">Service Area</div><div class="dpfv">'+esc(t.category||'General')+'</div></div>'
+    +'<div class="dpf"><div class="dpfl">Value</div><div class="dpfv mono">'+esc(t.value_str||'N/A')+'</div></div>'
+    +'<div class="dpf"><div class="dpfl">Deadline</div><div class="dpfv mono" style="color:'+dlc+'">'+esc(t.deadline||'N/A')+' ('+dlstr+')</div></div>'
+    +'<div class="dpf"><div class="dpfl">Status</div><div class="dpfv">'+spill(t.status)+'</div></div>'
+    +'<div class="dpf full"><div class="dpfl">Reference</div><div class="dpfv mono">'+esc(t.ref_no||'—')+'</div></div>'
+    +'</div></div>'
+    +'<div><div class="dpsl">Brief</div><div class="dpdesc">'+esc(t.description||t.title||'No description available.')+'</div></div>'
+    +'<div><div class="dpsl">AI Fit Analysis</div><div class="aiwrap" id="ai-'+id+'">'
+    +(t.summary
+      ?'<div class="aihead"><span class="ailbl"><span class="aildot"></span>Claude Analysis</span><span class="aisb">'+((t.score||0).toFixed(1))+' / 10</span></div><div class="aibody">'+fmtSumm(t.summary)+'</div>'
+      :'<button class="aicta" onclick="aiScore(\''+id+'\')"><svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.2 3.8H12L8.9 6.9l1.1 3.4L7 8.4l-3 1.9 1.1-3.4L2 4.8h3.8z" fill="currentColor"/></svg>Analyse relevance with Claude AI</button>')
+    +'</div></div>'
+    +'<div><div class="dpsl">Pipeline Actions</div><div class="dpacts">'
+    +'<button class="dpa aw" onclick="setStatus2(\''+id+'\',\'Watching\')">Watch</button>'
+    +'<button class="dpa ab" onclick="setStatus2(\''+id+'\',\'Bid Submitted\')">Mark Bid</button>'
+    +'<button class="dpa ag" onclick="setStatus2(\''+id+'\',\'Won\')">Won</button>'
+    +'<button class="dpa ar" onclick="setStatus2(\''+id+'\',\'Lost\')">Lost</button>'
+    +'<button class="dpa"    onclick="setStatus2(\''+id+'\',\'New\')">Reset</button>'
+    +(t.url&&t.url!=='#'?'<a class="dpa ap" href="'+esc(t.url)+'" target="_blank" rel="noopener">Portal ↗</a>':'')
+    +'</div></div>';
+  document.getElementById('dpanel').classList.add('open');
+  document.getElementById('dpbg').classList.add('open');
+  renderTable();
+}
+function closeDp() {
+  selId=null;
+  document.getElementById('dpanel').classList.remove('open');
+  document.getElementById('dpbg').classList.remove('open');
+  renderTable();
+}
+function fmtSumm(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+}
+
+// ── AI SCORER ─────────────────────────────────────────
+async function aiScore(id) {
+  var t = ALL.find(function(x){ return x.id===id; });
+  var box = document.getElementById('ai-'+id);
+  if (!t||!box) return;
+  box.innerHTML = '<div class="aihead"><span class="ailbl"><span class="aildot"></span>Analysing…</span></div>'
+    +'<div class="aiload"><div class="aidots"><div class="aidot"></div><div class="aidot"></div><div class="aidot"></div></div><span>Running fit analysis…</span></div>';
+  var profile = cfg().profile || DEF_PROFILE;
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:
+        'You are evaluating a government tender for a communications and PR agency.\n\nAGENCY:\n'+profile
+        +'\n\nTENDER:\nTitle: '+t.title+'\nService: '+t.category+'\nValue: '+t.value_str+'\nPortal: '+t.portal
+        +'\nDescription: '+(t.description||'').slice(0,400)
+        +'\n\nRespond ONLY as JSON (no markdown):\n{"score":<1.0-10.0>,"fit":"<one sentence>","opportunity":"<one sentence>","recommendation":"<Bid / Shortlist / Pass>"}'
+      }]})
+    });
+    var data = await resp.json();
+    var raw = ((data.content&&data.content[0]?data.content[0].text:'{}')).replace(/```json?/g,'').replace(/```/g,'').trim();
+    var d = JSON.parse(raw);
+    t.score   = Math.round(parseFloat(d.score||5)*10)/10;
+    t.summary = '**Fit:** '+(d.fit||'')+'\n\n**Opportunity:** '+(d.opportunity||'')+'\n\n**Recommendation:** '+(d.recommendation||'');
+    box.innerHTML = '<div class="aihead"><span class="ailbl"><span class="aildot"></span>Claude Analysis</span><span class="aisb">'+t.score.toFixed(1)+' / 10</span></div>'
+      +'<div class="aibody">'+fmtSumm(t.summary)+'</div>';
+    renderTable(); renderStats();
+  } catch(err) {
+    box.innerHTML = '<div class="aihead"><span class="ailbl" style="color:var(--red)">Error</span></div>'
+      +'<div class="aibody" style="color:var(--text3)">Could not reach Claude API.<br><small>'+esc(String(err))+'</small></div>'
+      +'<button class="aicta" onclick="aiScore(\''+id+'\')">Retry</button>';
+  }
+}
+
+// ── VIEW SWITCHING ────────────────────────────────────
+function showView(name, btn) {
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelectorAll('.sbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('view-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  var titles = {dashboard:'All Tenders',pipeline:'Pipeline',settings:'Settings'};
+  document.getElementById('ttitle').textContent = titles[name]||name;
+  if (name==='pipeline') renderPipeline();
+  if (name==='settings') initSetForm();
+}
+
+// ── HELPERS ───────────────────────────────────────────
+function daysLeft(d) { if(!d) return 999; return Math.ceil((new Date(d)-new Date())/86400000); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg) { var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2200); }
+function ptcls(p) {
+  if(!p) return 'pt-x'; var k=p.toLowerCase();
+  if(k.includes('gem'))  return 'pt-gem';  if(k.includes('cppp')) return 'pt-cppp';
+  if(k.includes('bhel')) return 'pt-bhel'; if(k.includes('ongc')) return 'pt-ongc';
+  if(k.includes('ntpc')) return 'pt-ntpc'; if(k.includes('state'))return 'pt-state';
+  return 'pt-x';
+}
+function spill(s) {
+  var m={New:'spn',Watching:'spw','Bid Submitted':'spb',Won:'spg',Lost:'spl'};
+  var c=m[s]||'spn';
+  return '<span class="sp '+c+'"><span class="spdot"></span>'+(s||'New')+'</span>';
+}
+
+// ── SAMPLE DATA ───────────────────────────────────────
+function demo() {
+  var td = new Date();
+  function dd(n){var x=new Date(td);x.setDate(x.getDate()+n);return x.toISOString().split('T')[0];}
+  return [
+    {id:'c01',portal:'GeM',     title:'Empanelment of PR & Communications Agency — Ministry of Education',                   ref_no:'GEM/2026/S/4201837',   category:'PR & Communications',  description:'Empanelment of qualified PR and communications agency for media relations, press releases, social media management, stakeholder communications, and public outreach for Ministry of Education.',                                                      value_str:'₹2.40 Cr',score:9.4,deadline:dd(8),  status:'Watching',     url:'#',summary:'**Fit:** Core service — ministry PR empanelment is a direct match.\n\n**Opportunity:** Significant digital mandate with content and social angles.\n\n**Recommendation:** Bid'},
+    {id:'c02',portal:'CPPP',    title:'Social Media Management & Digital Content — AIIMS New Delhi',                         ref_no:'CPPP/2026/IT/00891',   category:'Social Media',         description:'Social media management including content creation, community management, analytics reporting, and digital outreach across platforms for AIIMS New Delhi official channels.',                                                                            value_str:'₹68.00 L',score:8.9,deadline:dd(14), status:'New',          url:'#',summary:''},
+    {id:'c03',portal:'GeM',     title:'Integrated Communications Campaign — Swachh Bharat Urban Mission Phase II',           ref_no:'GEM/2026/S/4198024',   category:'Campaign Execution',   description:'End-to-end integrated communications campaign including strategy, creative development, media planning, digital outreach, ground activations, and impact measurement.',                                                                                   value_str:'₹4.80 Cr',score:9.1,deadline:dd(21), status:'Bid Submitted',url:'#',summary:'**Fit:** Large integrated campaign — exactly the multi-service scope we execute.\n\n**Opportunity:** High-visibility flagship; strong portfolio addition.\n\n**Recommendation:** Bid'},
+    {id:'c04',portal:'State-MH',title:'Media Monitoring & Analytics Services — Maharashtra Government',                      ref_no:'MAHA/IT/MED/2026/447', category:'Media Monitoring',     description:'24×7 media monitoring across print, digital, broadcast, and social media. Daily clipping reports, sentiment analysis, share of voice tracking, and monthly dashboards for CMO office.',                                                                 value_str:'₹42.00 L',score:8.6,deadline:dd(11), status:'New',          url:'#',summary:''},
+    {id:'c05',portal:'CPPP',    title:'Event Publicity & Communication Support — India International Trade Fair 2026',       ref_no:'CPPP/2026/EVT/01024', category:'Event Publicity',      description:'End-to-end communication support for IITF including pre-event publicity, on-ground PR, media accreditation management, social media live coverage, and post-event impact reporting.',                                                                     value_str:'₹88.00 L',score:8.2,deadline:dd(18), status:'Watching',     url:'#',summary:''},
+    {id:'c06',portal:'GeM',     title:'Digital Outreach & Awareness Campaign — PM Kisan Samman Nidhi',                      ref_no:'GEM/2026/S/4215093',   category:'Digital Outreach',     description:'Targeted digital outreach to raise awareness of PM Kisan scheme. Vernacular content, WhatsApp campaigns, YouTube advertising, and micro-influencer partnerships in 8 states.',                                                                           value_str:'₹1.20 Cr',score:7.8,deadline:dd(25), status:'New',          url:'#',summary:''},
+    {id:'c07',portal:'NTPC',    title:'Corporate Communications & Reputation Management Retainer — NTPC Limited',            ref_no:'NTPC/CC/REP/2026/031', category:'Reputation Management',description:'Comprehensive reputation management retainer: crisis communications, executive thought leadership, ESG communications, stakeholder engagement, and ongoing media relations.',                                                                               value_str:'₹1.60 Cr',score:8.7,deadline:dd(6),  status:'New',          url:'#',summary:'**Fit:** Reputation management for major PSU — direct capability match.\n\n**Opportunity:** Long-term retainer with strong reference value.\n\n**Recommendation:** Bid'},
+    {id:'c08',portal:'State-MH',title:'Creative Content Development — Maharashtra Tourism National Campaign',                 ref_no:'MAHA/TOU/CRT/2026/118',category:'Creative & Content',   description:'Creative assets including short films, photography, digital content series, OOH creatives, and campaign identity for Maharashtra Tourism national and international campaign.',                                                                           value_str:'₹2.10 Cr',score:7.4,deadline:dd(30), status:'New',          url:'#',summary:''},
+    {id:'c09',portal:'CPPP',    title:'Communication Strategy & Implementation — National Health Authority',                 ref_no:'CPPP/2026/HLT/00756', category:'PR & Communications', description:'Comprehensive communication strategy for Ayushman Bharat Digital Mission: stakeholder mapping, messaging architecture, media relations, and multi-channel public awareness campaigns.',                                                                       value_str:'₹3.20 Cr',score:9.3,deadline:dd(16), status:'New',          url:'#',summary:''},
+    {id:'c10',portal:'GeM',     title:'Analytics & Performance Dashboard — Digital India Communications Cell',               ref_no:'GEM/2026/S/4187631',   category:'Analytics',            description:'Unified analytics dashboard: social media performance, earned media value, campaign reach metrics, share of voice, and real-time monitoring for Digital India Communications Cell.',                                                                      value_str:'₹56.00 L',score:7.1,deadline:dd(35), status:'New',          url:'#',summary:''},
+    {id:'c11',portal:'BHEL',    title:'Internal Communications & Employee Engagement Program — BHEL Corporate',              ref_no:'BHEL/HR/COMM/2026/014',category:'Creative & Content',   description:'Annual internal communications: employee newsletter, intranet content, town hall support, corporate films, and employee engagement campaign materials across 16 BHEL units.',                                                                              value_str:'₹38.00 L',score:6.8,deadline:dd(42), status:'New',          url:'#',summary:''},
+    {id:'c12',portal:'CPPP',    title:'Public Awareness Campaign — Ministry of Jal Shakti Water Conservation Initiative',   ref_no:'CPPP/2026/JSK/01198', category:'Campaign Execution',   description:'Multi-channel public awareness on water conservation: TV, radio, digital, OOH, and community engagement with vernacular adaptations across 12 languages and 20 states.',                                                                                 value_str:'₹5.60 Cr',score:8.0,deadline:dd(19), status:'New',          url:'#',summary:''},
+  ];
+}
+
+// ── INIT ──────────────────────────────────────────────
+loadData();
+// Auto-refresh every 5 minutes
+setInterval(loadData, 5 * 60 * 1000);
+</script>
+</body>
+</html>
